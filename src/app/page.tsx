@@ -34,13 +34,13 @@ async function Storefront({ searchParams }: { searchParams: PageProps<"/">["sear
     <>
       <Hero key={`${q}|${filter}`} initialQuery={q} activeFilter={filter} />
 
-      <section id="inventory" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6">
-        <div className="mb-8 flex items-end justify-between">
+      <section id="inventory" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-12 sm:px-6 sm:py-20">
+        <div className="mb-6 flex flex-col gap-1 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
           <div>
             <h2 className="chrome-text text-3xl font-black sm:text-4xl">Live Inventory</h2>
             <p className="mt-1 text-chrome-dim">Slide the down payment. Watch your monthly move.</p>
           </div>
-          <p className="text-sm text-chrome-dark">{vehicles.length} vehicles</p>
+          <p className="shrink-0 text-sm text-chrome-dark">{vehicles.length} vehicles</p>
         </div>
         <InventoryGrid vehicles={vehicles} />
       </section>

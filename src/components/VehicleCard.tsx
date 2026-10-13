@@ -78,8 +78,8 @@ export function VehicleCard({ vehicle, onHold }: Props) {
 
       <div className="flex flex-1 flex-col gap-4 p-4 sm:p-5">
         <header>
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="text-lg font-bold leading-tight text-white">{title}</h3>
+          <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
+            <h3 className="min-w-0 flex-1 basis-40 text-lg font-bold leading-tight text-white">{title}</h3>
             <p className="shrink-0 text-xl font-extrabold text-white">{usd(vehicle.price)}</p>
           </div>
           <p className="mt-0.5 text-sm text-chrome-dim">{vehicle.trim}</p>
