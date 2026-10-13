@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Source 1 Auto Group
 
-## Getting Started
+Used-car dealership storefront and staff portal. Next.js (App Router), TypeScript, Tailwind v4, Framer Motion,
+Supabase (Postgres + Auth + RLS), Cloudinary (photos), Mux (video).
 
-First, run the development server:
+## Features
+- Storefront: hero, inventory grid with live payment calculator, transparency hotspot inspector, Mux walkaround player, Hold My Ride modal with WhatsApp/SMS handoff.
+- Admin (`/admin`): Supabase email/password sign-in, inventory list, VIN decoder (NHTSA) intake, edit/delete, photo/video uploads, hotspot studio, leads list.
+- Lead notifications to Slack and/or email (Resend).
 
+## Local development
 ```bash
+npm install
+cp .env.example .env.local   # optional: without Supabase vars the site runs on seed data (demo mode)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Open http://localhost:3000. Checks: `npm run lint`, `npx tsc --noEmit`, `npm run build`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploying
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for Supabase setup, creating the admin user, environment variables and the Vercel steps.
+Database schema: [supabase/schema.sql](./supabase/schema.sql).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> This project uses Next.js 16 conventions (`src/proxy.ts` instead of middleware, `cacheComponents`). See `AGENTS.md`.
