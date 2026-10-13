@@ -25,7 +25,6 @@ Admin = a signed-in user whose `app_metadata.role` is `admin` (users can't edit 
 
 ## 4. Mux
 - [ ] Settings → API Access Tokens → create a token with **Mux Video** read/write. Copy Token ID and Secret.
-- [ ] (Optional) Upload a hero loop, copy its playback ID into `NEXT_PUBLIC_HERO_MUX_PLAYBACK_ID`.
 - [ ] Note: the CORS origin for direct uploads is set by the app to the request origin; no extra Mux config needed.
 
 ## 5. Vercel environment variables
@@ -40,7 +39,6 @@ Project → Settings → Environment Variables (Production, plus Preview if want
 | `CLOUDINARY_API_SECRET` | Cloudinary | **secret** |
 | `MUX_TOKEN_ID` | Mux | no |
 | `MUX_TOKEN_SECRET` | Mux | **secret** |
-| `NEXT_PUBLIC_HERO_MUX_PLAYBACK_ID` | Mux (optional) | yes |
 | `SLACK_WEBHOOK_URL` | Slack incoming webhook (optional) | **secret** |
 | `RESEND_API_KEY` | Resend (optional) | **secret** |
 | `LEAD_FROM_EMAIL` | A sender on a domain verified in Resend, e.g. `Source 1 <leads@yourdomain.com>` | no |

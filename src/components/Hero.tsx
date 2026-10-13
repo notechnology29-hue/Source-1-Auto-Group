@@ -10,8 +10,6 @@ interface Props {
   activeFilter: QuickFilter | null;
 }
 
-const MUX_ID = process.env.NEXT_PUBLIC_HERO_MUX_PLAYBACK_ID;
-
 export function Hero({ initialQuery, activeFilter }: Props) {
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
@@ -31,31 +29,32 @@ export function Hero({ initialQuery, activeFilter }: Props) {
   };
 
   return (
-    <section className="relative isolate flex min-h-[88svh] items-center overflow-hidden pb-10 pt-24 sm:pt-16">
+    <section className="relative isolate flex min-h-[88svh] items-center overflow-hidden pb-10 pt-24 sm:pt-28">
       <div className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_50%_100%,#0b2a66_0%,#090a0f_65%)]" />
-      {MUX_ID && (
-        <video
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden
-        >
-          <source src={`https://stream.mux.com/${MUX_ID}/high.mp4`} type="video/mp4" />
-        </video>
-      )}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-carbon/70 via-transparent to-carbon" />
+      <video
+        className="absolute inset-0 -z-10 h-full w-full object-cover opacity-70"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="/media/hero-poster.jpg"
+        aria-hidden
+      >
+        <source src="/media/hero.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 -z-10 bg-carbon/45" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-carbon/80 via-carbon/10 to-carbon" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-neon to-transparent shadow-neon" />
 
-      <div className="mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
+      <div className="mx-auto w-full max-w-5xl px-4 text-center sm:px-6">
         <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-neon-light sm:text-xs sm:tracking-[0.4em]">The Midnight Showroom</p>
-        <h1 className="chrome-text text-[2.5rem] font-black leading-[1.08] sm:text-7xl sm:leading-[1.05]">
-          Used cars.<br />Zero secrets.
+        <h1 className="chrome-text text-[2rem] font-black leading-[1.1] drop-shadow-[0_2px_24px_rgba(0,0,0,0.8)] min-[420px]:text-5xl sm:text-6xl lg:text-7xl">
+          Driven By Performance.<br />Built On Trust.
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-base text-chrome-dim sm:mt-5 sm:text-lg">
-          Every scratch, upgrade, and repair is pinned right on the photos. Find your ride, see your payment, hold it for 24 hours.
+        <h2 className="mt-5 text-2xl font-bold text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.8)] sm:text-3xl">Drive Without Doubt.</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-base text-chrome drop-shadow-[0_1px_12px_rgba(0,0,0,0.9)] sm:text-lg">
+          Interactive transparency inspections, live monthly payment customization, and instant 24-hour holds—all from your screen.
         </p>
 
         <form
