@@ -13,6 +13,7 @@ export interface HandoffInput {
 export const INQUIRY_LABELS: Record<InquiryType, string> = {
   hold_ride: "24-Hour Hold",
   test_drive: "VIP Test Drive",
+  contact: "Contact Form Message",
 };
 
 export function buildHandoffMessage(h: HandoffInput): string {

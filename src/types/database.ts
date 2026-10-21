@@ -2,7 +2,7 @@ export type VehicleStatus = "available" | "pending" | "sold";
 export type VehicleCondition = "excellent" | "good" | "fair";
 export type MediaType = "image" | "video";
 export type HotspotSeverity = "cosmetic" | "upgrade" | "repaired";
-export type InquiryType = "hold_ride" | "test_drive";
+export type InquiryType = "hold_ride" | "test_drive" | "contact";
 export type LeadStatus = "new" | "contacted";
 
 export type Vehicle = {
@@ -22,6 +22,16 @@ export type Vehicle = {
   engine: string | null;
   features: string[];
   clean_carfax: boolean;
+  body_style?: string | null;
+  transmission?: string | null;
+  fuel_type?: string | null;
+  mpg_city?: number | null;
+  mpg_highway?: number | null;
+  interior_color?: string | null;
+  description?: string | null;
+  starting_price?: number | null;
+  location?: string | null;
+  carfax_url?: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -49,10 +59,11 @@ export type TransparencyHotspot = {
 
 export type Lead = {
   id: string;
-  vehicle_id: string;
+  vehicle_id: string | null;
   customer_name: string;
   customer_email: string;
-  customer_phone: string;
+  customer_phone: string | null;
+  message: string | null;
   inquiry_type: InquiryType;
   status: LeadStatus;
   created_at: string;
@@ -66,7 +77,16 @@ export type VehicleInsert = Insertable<
 >;
 export type VehicleMediaInsert = Insertable<VehicleMedia, "id" | "created_at" | "is_primary" | "media_type">;
 export type HotspotInsert = Insertable<TransparencyHotspot, "id" | "created_at" | "description" | "severity">;
-export type LeadInsert = Pick<Lead, "vehicle_id" | "customer_name" | "customer_email" | "customer_phone" | "inquiry_type">;
+export type LeadInsert = Pick<Lead, "customer_name" | "customer_email" | "inquiry_type"> &
+  Partial<Pick<Lead, "vehicle_id" | "customer_phone" | "message">>;
+
+export type CreditApplicationInsert = {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  applicant: Record<string, unknown>;
+  sensitive_enc: string;
+};
 
 /** Supabase typed-client schema. */
 export interface Database {
@@ -76,6 +96,12 @@ export interface Database {
       vehicle_media: { Row: VehicleMedia; Insert: VehicleMediaInsert; Update: Partial<VehicleMediaInsert>; Relationships: [] };
       transparency_hotspots: { Row: TransparencyHotspot; Insert: HotspotInsert; Update: Partial<HotspotInsert>; Relationships: [] };
       leads: { Row: Lead; Insert: LeadInsert; Update: Partial<Pick<Lead, "status">>; Relationships: [] };
+      credit_applications: {
+        Row: CreditApplicationInsert & { id: string; created_at: string; status: string };
+        Insert: CreditApplicationInsert;
+        Update: { status: string };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

@@ -11,6 +11,7 @@ export interface LeadRow {
   customer_name: string;
   customer_email: string;
   customer_phone: string;
+  message?: string;
   inquiry_type: InquiryType;
   status: LeadStatus;
   created_at: string;
@@ -59,13 +60,16 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
                     {INQUIRY_LABELS[l.inquiry_type]} · {l.vehicle} · Stock # {l.stock_number}
                   </p>
                   <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
-                    <a href={`tel:${l.customer_phone.replace(/[^0-9+]/g, "")}`} className="flex items-center gap-1.5 text-chrome hover:text-neon-light">
-                      <Phone size={14} aria-hidden /> {l.customer_phone}
-                    </a>
+                    {l.customer_phone && (
+                      <a href={`tel:${l.customer_phone.replace(/[^0-9+]/g, "")}`} className="flex items-center gap-1.5 text-chrome hover:text-neon-light">
+                        <Phone size={14} aria-hidden /> {l.customer_phone}
+                      </a>
+                    )}
                     <a href={`mailto:${l.customer_email}`} className="flex items-center gap-1.5 text-chrome hover:text-neon-light">
                       <Mail size={14} aria-hidden /> {l.customer_email}
                     </a>
                   </p>
+                  {l.message && <p className="mt-2 whitespace-pre-line text-sm text-chrome-dim">{l.message}</p>}
                 </div>
                 <div className="flex flex-col items-end gap-2">
                   <time dateTime={l.created_at} className="text-xs text-chrome-dark">

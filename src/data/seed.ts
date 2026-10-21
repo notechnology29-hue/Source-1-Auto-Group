@@ -1,4 +1,4 @@
-import type { VehicleWithMedia } from "@/types/database";
+import type { Vehicle, VehicleWithMedia } from "@/types/database";
 
 const ts = "2026-10-01T00:00:00Z";
 
@@ -24,6 +24,7 @@ interface SeedInput {
   carfax: boolean;
   condition?: "excellent" | "good" | "fair";
   status?: "available" | "pending";
+  noMedia?: boolean;
 }
 
 function build(s: SeedInput): VehicleWithMedia {
@@ -47,7 +48,7 @@ function build(s: SeedInput): VehicleWithMedia {
     clean_carfax: s.carfax,
     created_at: ts,
     updated_at: ts,
-    vehicle_media: [
+    vehicle_media: s.noMedia ? [] : [
       { id: `${id}-m1`, vehicle_id: id, url: img(s.hex, "Front 3/4"), is_primary: true, media_type: "image", created_at: ts },
       { id: `${id}-m2`, vehicle_id: id, url: img(s.hex, "Side Profile"), is_primary: false, media_type: "image", created_at: ts },
     ],
@@ -84,6 +85,25 @@ const vehicles: VehicleWithMedia[] = [
   build({ n: 5, stock: "S1-1005", vin: "1G1YY2D79H5101234", year: 2017, make: "Chevrolet", model: "Corvette", trim: "Stingray Z51", price: 49995, mileage: 27800, color: "Torch Red", hex: "#FF1E38", drivetrain: "RWD", engine: "6.2L V8", features: ["Z51 Performance Package", "Magnetic Ride", "Targa Top"], carfax: true, status: "pending" }),
   build({ n: 6, stock: "S1-1006", vin: "JTMRFREV5KD012345", year: 2019, make: "Toyota", model: "RAV4", trim: "XLE AWD", price: 21850, mileage: 61300, color: "Blueprint", hex: "#0066FF", drivetrain: "AWD", engine: "2.5L I4", features: ["Blind Spot Monitor", "Power Liftgate", "Toyota Safety Sense"], carfax: true, condition: "good" }),
 ];
+
+vehicles.push(
+  build({ n: 7, stock: "S1-1007", vin: "1C4HJXFG5LW123456", year: 2020, make: "Jeep", model: "Wrangler", trim: "Unlimited Rubicon", price: 38950, mileage: 44800, color: "Granite Crystal", hex: "#4A4F5C", drivetrain: "4WD", engine: "3.6L V6", features: ["Removable Hardtop", "Navigation", "Alpine Audio"], carfax: true, condition: "good", noMedia: true }),
+);
+
+/** Dealership-style listing details (transmission, MPG, interior) layered onto the demo inventory. */
+const EXTRA: Record<string, Partial<Vehicle>> = {
+  "S1-1001": { body_style: "Truck", transmission: "8-Speed Automatic", mpg_city: 15, mpg_highway: 21, interior_color: "Black", starting_price: 43995, features: ["Leather Seats", "Keyless Ignition/Entry", "Moonroof"] },
+  "S1-1002": { body_style: "Car", transmission: "7-Speed Dual-Clutch Automatic", mpg_city: 16, mpg_highway: 23, interior_color: "Black", starting_price: 46900, features: ["Leather Seats", "Heated Seats", "Keyless Ignition/Entry"] },
+  "S1-1003": { body_style: "Car", transmission: "10-Speed Automatic", mpg_city: 22, mpg_highway: 32, interior_color: "Black", starting_price: 24995, features: ["Leather Seats", "Heated Seats", "Moonroof", "Keyless Ignition/Entry"] },
+  "S1-1004": { body_style: "Truck", transmission: "10-Speed Automatic", mpg_city: 17, mpg_highway: 23, interior_color: "Gray", starting_price: 38500, features: ["Keyless Ignition/Entry"] },
+  "S1-1005": { body_style: "Car", transmission: "8-Speed Paddle-Shift Automatic", mpg_city: 16, mpg_highway: 25, interior_color: "Black", starting_price: 51995, features: ["Convertible", "Leather Seats", "Heated Seats"] },
+  "S1-1006": { body_style: "SUV", transmission: "8-Speed Automatic", mpg_city: 27, mpg_highway: 35, interior_color: "Black", starting_price: 22850, features: ["Moonroof", "Keyless Ignition/Entry"] },
+  "S1-1007": { body_style: "SUV", transmission: "8-Speed Automatic", mpg_city: 17, mpg_highway: 25, interior_color: "Black", starting_price: 40950, features: ["Leather Seats", "Heated Seats"] },
+};
+for (const v of vehicles) {
+  const { features, ...extra } = EXTRA[v.stock_number] ?? {};
+  Object.assign(v, extra, { features: [...v.features, ...(features ?? [])], location: "Source 1 Auto Group - Phoenix, AZ" });
+}
 
 const v1 = vehicles[0].id;
 const v2 = vehicles[1].id;

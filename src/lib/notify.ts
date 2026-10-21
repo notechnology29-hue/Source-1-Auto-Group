@@ -9,6 +9,7 @@ export interface LeadNotice {
   name: string;
   phone: string;
   email: string;
+  message?: string;
 }
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -41,6 +42,7 @@ async function notifySlack(n: LeadNotice) {
             { type: "mrkdwn", text: `*Email*\n${s(n.email)}` },
           ],
         },
+        ...(n.message ? [{ type: "section", text: { type: "mrkdwn", text: `*Message*\n${s(n.message)}` } }] : []),
       ],
     }),
   });
@@ -60,6 +62,7 @@ async function notifyEmail(n: LeadNotice) {
     ["Name", n.name],
     ["Phone", n.phone],
     ["Email", n.email],
+    ...(n.message ? ([["Message", n.message]] as [string, string][]) : []),
   ];
   const html = `<div style="font-family:system-ui,sans-serif"><h2>New lead: ${esc(label)}</h2><table cellpadding="6">${rows
     .map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${esc(v)}</td></tr>`)

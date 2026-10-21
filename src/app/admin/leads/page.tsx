@@ -35,11 +35,12 @@ async function Leads() {
       id: l.id,
       customer_name: l.customer_name,
       customer_email: l.customer_email,
-      customer_phone: l.customer_phone,
+      customer_phone: l.customer_phone ?? "",
+      message: l.message ?? undefined,
       inquiry_type: l.inquiry_type,
       status: l.status,
       created_at: l.created_at,
-      vehicle: l.vehicles ? `${l.vehicles.year} ${l.vehicles.make} ${l.vehicles.model}` : "Unknown vehicle",
+      vehicle: l.vehicles ? `${l.vehicles.year} ${l.vehicles.make} ${l.vehicles.model}` : l.inquiry_type === "contact" ? "General inquiry" : "Unknown vehicle",
       stock_number: l.vehicles?.stock_number ?? "—",
     }))
     .sort((a, b) => Number(b.status === "new") - Number(a.status === "new"));

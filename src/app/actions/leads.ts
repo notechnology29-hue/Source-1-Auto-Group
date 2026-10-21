@@ -99,3 +99,50 @@ export async function submitLeadAction(input: unknown): Promise<ActionResult<Lea
     },
   };
 }
+
+const contactSchema = z.object({
+  first_name: z.string().trim().min(1, "Enter your first name").max(50),
+  last_name: z.string().trim().min(1, "Enter your last name").max(50),
+  email: z.string().trim().email("Enter a valid email address").max(200),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^([0-9+()\-.\s]{7,20})?$/, "Enter a valid phone number"),
+  comments: z.string().trim().max(2000, "Comments are too long").optional(),
+  website: z.string().max(0).optional(),
+});
+
+/** General "Send Us a Message" form: saved to `leads` without a vehicle. */
+export async function submitContactAction(input: unknown): Promise<ActionResult<{ saved: boolean }>> {
+  const parsed = contactSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "Please check your details." };
+  }
+  const c = parsed.data;
+  const configured = isSupabaseConfigured();
+  if (!configured) return { ok: true, data: { saved: false } };
+
+  const name = `${c.first_name} ${c.last_name}`;
+  const supabase = await createClient();
+  const { error } = await supabase.from("leads").insert({
+    customer_name: name,
+    customer_email: c.email,
+    customer_phone: c.phone || null,
+    message: c.comments || null,
+    inquiry_type: "contact",
+  });
+  if (error) return { ok: false, error: "We couldn't send your message. Please call us instead." };
+
+  after(() =>
+    notifyNewLead({
+      inquiry: "contact",
+      vehicleTitle: "General inquiry",
+      stockNumber: "—",
+      name,
+      phone: c.phone || "Not provided",
+      email: c.email,
+      message: c.comments || undefined,
+    }),
+  );
+  return { ok: true, data: { saved: true } };
+}

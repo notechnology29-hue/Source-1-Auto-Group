@@ -11,6 +11,7 @@ import type { InquiryType, VehicleWithMedia } from "@/types/database";
 interface Props {
   vehicle: VehicleWithMedia | null;
   onClose: () => void;
+  initialInquiry?: InquiryType;
 }
 
 const OPTIONS: { id: InquiryType; label: string; blurb: string; icon: typeof Clock }[] = [
@@ -18,16 +19,16 @@ const OPTIONS: { id: InquiryType; label: string; blurb: string; icon: typeof Clo
   { id: "test_drive", label: "VIP test drive", blurb: "We'll have it ready at the door", icon: CalendarCheck },
 ];
 
-export function HoldMyRideModal({ vehicle, onClose }: Props) {
+export function HoldMyRideModal({ vehicle, onClose, initialInquiry = "hold_ride" }: Props) {
   return (
     <AnimatePresence>
-      {vehicle && <ModalBody key={vehicle.id} vehicle={vehicle} onClose={onClose} />}
+      {vehicle && <ModalBody key={`${vehicle.id}-${initialInquiry}`} vehicle={vehicle} initialInquiry={initialInquiry} onClose={onClose} />}
     </AnimatePresence>
   );
 }
 
-function ModalBody({ vehicle, onClose }: { vehicle: VehicleWithMedia; onClose: () => void }) {
-  const [inquiry, setInquiry] = useState<InquiryType>("hold_ride");
+function ModalBody({ vehicle, initialInquiry, onClose }: { vehicle: VehicleWithMedia; initialInquiry: InquiryType; onClose: () => void }) {
+  const [inquiry, setInquiry] = useState<InquiryType>(initialInquiry);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<LeadHandoff | null>(null);

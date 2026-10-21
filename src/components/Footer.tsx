@@ -3,7 +3,7 @@ import { BRAND } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer id="contact" className="mt-12 border-t border-neon/30 bg-carbon-50 sm:mt-24">
+    <footer className="border-t border-neon/30 bg-carbon-50">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:gap-10 sm:px-6 sm:py-14 md:grid-cols-3">
         <div>
           <p className="chrome-text text-xl font-extrabold tracking-wide">SOURCE 1 AUTO GROUP</p>

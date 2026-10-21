@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { VehicleImage } from "@/components/ui/VehicleImage";
+import { ComingSoonOverlay } from "@/components/ui/ComingSoonOverlay";
 import { HOTSPOT_STYLES } from "@/lib/constants";
 import type { VehicleWithMedia } from "@/types/database";
 
@@ -39,6 +40,7 @@ export function HotspotShowcase({ vehicle }: { vehicle: VehicleWithMedia }) {
       <div>
         <div ref={stageRef} className="neon-frame relative aspect-[16/10] overflow-hidden bg-carbon-100">
           <VehicleImage src={media.url} alt={`${title} inspection photo`} sizes="(min-width: 1024px) 66vw, 100vw" />
+          <ComingSoonOverlay size="hero" />
 
           {spots.map((h, i) => {
             const style = HOTSPOT_STYLES[h.severity];
@@ -109,7 +111,7 @@ export function HotspotShowcase({ vehicle }: { vehicle: VehicleWithMedia }) {
         </div>
 
         {images.length > 1 && (
-          <div className="mt-3 flex gap-3">
+          <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
             {images.map((m) => (
               <button
                 key={m.id}
@@ -120,8 +122,8 @@ export function HotspotShowcase({ vehicle }: { vehicle: VehicleWithMedia }) {
                 }}
                 aria-label="View photo"
                 aria-pressed={m.id === mediaId}
-                className={`relative h-16 w-24 overflow-hidden rounded-lg border-2 transition ${
-                  m.id === mediaId ? "border-neon shadow-neon" : "border-white/10 opacity-70 hover:opacity-100"
+                className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2 transition ${
+                  m.id === mediaId ? "border-blue-600 shadow-neon" : "border-zinc-300 opacity-70 hover:opacity-100"
                 }`}
               >
                 <VehicleImage src={m.url} alt="" sizes="96px" />
@@ -132,11 +134,11 @@ export function HotspotShowcase({ vehicle }: { vehicle: VehicleWithMedia }) {
       </div>
 
       <aside>
-        <h3 className="text-xl font-bold text-white">{title}</h3>
-        <p className="text-sm text-chrome-dim">{vehicle.trim} · Stock # {vehicle.stock_number}</p>
+        <h3 className="text-xl font-bold text-zinc-900">{title}</h3>
+        <p className="text-sm text-zinc-600">{vehicle.trim} · Stock # {vehicle.stock_number}</p>
 
         <ul className="mt-5 space-y-2" aria-label="Disclosures on this photo">
-          {spots.length === 0 && <li className="text-sm text-chrome-dark">No disclosures pinned on this photo.</li>}
+          {spots.length === 0 && <li className="text-sm text-zinc-500">No disclosures pinned           on this photo.</li>}
           {spots.map((h, i) => (
             <li key={h.id}>
               <button
@@ -144,7 +146,7 @@ export function HotspotShowcase({ vehicle }: { vehicle: VehicleWithMedia }) {
                 data-hotspot-ui
                 onClick={() => setOpenId(h.id === openId ? null : h.id)}
                 className={`flex min-h-12 w-full items-center gap-3 rounded-lg border p-3 text-left text-sm transition ${
-                  h.id === openId ? "border-neon bg-neon/10" : "border-white/10 hover:border-neon/50"
+                  h.id === openId ? "border-blue-600 bg-blue-50" : "border-zinc-300 hover:border-blue-500"
                 }`}
               >
                 <span
@@ -153,13 +155,13 @@ export function HotspotShowcase({ vehicle }: { vehicle: VehicleWithMedia }) {
                 >
                   {i + 1}
                 </span>
-                <span className="text-chrome">{h.title}</span>
+                <span className="text-zinc-800">{h.title}</span>
               </button>
             </li>
           ))}
         </ul>
 
-        <ul className="mt-6 space-y-1.5 text-xs text-chrome-dim" aria-label="Legend">
+        <ul className="mt-6 space-y-1.5 text-xs text-zinc-600" aria-label="Legend">
           {Object.values(HOTSPOT_STYLES).map((s) => (
             <li key={s.label} className="flex items-center gap-2">
               <span className="h-3 w-3 rounded-full" style={{ backgroundColor: s.color }} />

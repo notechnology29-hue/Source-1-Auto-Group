@@ -43,12 +43,12 @@
 }
 
 html {
-  background: var(--color-carbon);
+  background: #fff;
 }
 
 body {
-  background: var(--color-carbon);
-  color: var(--color-chrome);
+  background: #fff;
+  color: #18181b;
   font-family: var(--font-sans);
 }
 
@@ -67,6 +67,9 @@ body {
   }
   .btn-neon {
     @apply inline-flex items-center justify-center gap-2 rounded-lg border border-neon bg-neon/10 px-5 py-3 font-semibold text-chrome transition hover:bg-neon/25 hover:shadow-neon disabled:opacity-50;
+  }
+  .input-light {
+    @apply w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600;
   }
   .input-dark {
     @apply w-full rounded-lg border border-white/10 bg-carbon-100 px-4 py-3 text-chrome placeholder:text-chrome-dark focus:border-neon focus:outline-none focus:ring-1 focus:ring-neon;
