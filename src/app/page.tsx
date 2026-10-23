@@ -27,7 +27,7 @@ export default function Home() {
       <SiteHeader />
       <main className="bg-white">
         <section className="relative isolate flex min-h-[48svh] items-center justify-center overflow-hidden sm:min-h-[62svh]">
-          <Image src="/media/hero-poster.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover" />
+          <Image src="/media/hero-main-poster.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover" />
           <video
             className="absolute inset-0 -z-10 h-full w-full object-cover opacity-80 motion-reduce:hidden"
             autoPlay
@@ -35,10 +35,10 @@ export default function Home() {
             loop
             playsInline
             preload="auto"
-            poster="/media/hero-poster.jpg"
+            poster="/media/hero-main-poster.jpg"
             aria-hidden
           >
-            <source src="/media/hero.mp4" type="video/mp4" />
+            <source src="/media/hero-main.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zinc-950/70 via-zinc-950/20 to-zinc-950/90" />
           <div className="absolute inset-x-0 bottom-0 -z-10 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent shadow-neon" />
