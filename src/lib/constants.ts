@@ -15,9 +15,8 @@ export const BRAND = {
     { days: "Sunday", time: "Closed" },
   ],
   socials: {
-    facebook: "https://www.facebook.com/",
-    x: "https://x.com/",
-    youtube: "https://www.youtube.com/",
+    instagram: "https://www.instagram.com/source1autogroup/",
+    instagramHandle: "@source1autogroup",
   },
 } as const;
 

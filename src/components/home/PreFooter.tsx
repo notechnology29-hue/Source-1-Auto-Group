@@ -3,21 +3,13 @@ import { MapPin } from "lucide-react";
 import { ContactForm } from "@/components/home/ContactForm";
 import { BRAND } from "@/lib/constants";
 
-const socialBtn = "flex h-11 w-11 items-center justify-center rounded-md bg-zinc-800 text-white transition hover:bg-blue-600";
-
-function Facebook() {
+function Instagram() {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden><path d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.9s-1.4-.3-2.6-.3c-2.7 0-4.4 1.6-4.4 4.5v2.4H7.2v3.3H10V22h3.5z" /></svg>
-  );
-}
-function XIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-  );
-}
-function YouTube() {
-  return (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -35,10 +27,17 @@ export function PreFooter() {
             <MapPin size={16} aria-hidden /> Get directions
           </a>
           <p className="mt-8 text-sm font-bold uppercase tracking-widest text-zinc-900">Follow Us</p>
-          <div className="mt-3 flex gap-3">
-            <a href={BRAND.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={socialBtn}><Facebook /></a>
-            <a href={BRAND.socials.x} target="_blank" rel="noopener noreferrer" aria-label="X" className={socialBtn}><XIcon /></a>
-            <a href={BRAND.socials.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className={socialBtn}><YouTube /></a>
+          <div className="mt-3">
+            <a
+              href={BRAND.socials.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Follow ${BRAND.name} on Instagram`}
+              className="inline-flex min-h-11 items-center gap-3 rounded-md bg-zinc-800 px-4 text-white transition hover:bg-blue-600"
+            >
+              <Instagram />
+              <span className="text-sm font-semibold">{BRAND.socials.instagramHandle}</span>
+            </a>
           </div>
         </div>
 
