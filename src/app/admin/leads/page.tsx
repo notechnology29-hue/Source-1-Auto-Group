@@ -54,6 +54,7 @@ async function Leads() {
           <p className="text-sm text-chrome-dim">{leads.filter((l) => l.status === "new").length} new · {leads.length} total</p>
         </div>
         <div className="flex gap-2">
+          <Link href="/admin" className="btn-neon !px-4 !py-2 text-sm">Dashboard</Link>
           <Link href="/admin/inventory" className="btn-neon !px-4 !py-2 text-sm">Inventory</Link>
           <Link href="/admin/intake" className="btn-neon !px-4 !py-2 text-sm">Add vehicle</Link>
           <form action={signOutAction}>

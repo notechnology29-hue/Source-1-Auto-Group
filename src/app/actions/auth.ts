@@ -19,7 +19,7 @@ export async function signInAction(_prev: { error?: string } | undefined, formDa
     await supabase.auth.signOut();
     return { error: "This account does not have admin access." };
   }
-  redirect("/admin/inventory");
+  redirect("/admin");
 }
 
 export async function signOutAction() {

@@ -46,6 +46,7 @@ async function Inventory() {
           <Link href="/admin/intake" className="btn-hot !px-4 !py-2 text-sm">
             <Plus size={16} aria-hidden /> Add vehicle
           </Link>
+          <Link href="/admin" className="btn-neon !px-4 !py-2 text-sm">Dashboard</Link>
           <Link href="/admin/leads" className="btn-neon !px-4 !py-2 text-sm">Leads</Link>
           <form action={signOutAction}>
             <button type="submit" className="btn-neon !px-4 !py-2 text-sm">

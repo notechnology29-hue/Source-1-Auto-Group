@@ -30,7 +30,7 @@ export async function proxy(request: NextRequest) {
   const isAdmin = user?.app_metadata?.role === "admin";
 
   if (!isAdmin && !isLogin) return redirectTo("/admin/login");
-  if (isAdmin && isLogin) return redirectTo("/admin/inventory");
+  if (isAdmin && isLogin) return redirectTo("/admin");
   return response;
 }
 
