@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { Car, FileText, Inbox, LogOut, Plus } from "lucide-react";
 import { signOutAction } from "@/app/actions/auth";
 import { LeadsTable, type LeadRow } from "@/components/admin/LeadsTable";
+import { PoweredBy } from "@/components/PoweredBy";
 import { getAdmin } from "@/lib/auth";
 import { INQUIRY_LABELS } from "@/lib/handoff";
 import type { InquiryType, Lead } from "@/types/database";
@@ -133,6 +134,7 @@ async function Dashboard() {
         </p>
         <LeadsTable leads={leads} />
       </section>
+      <PoweredBy className="mt-12 text-center" />
     </main>
   );
 }
