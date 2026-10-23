@@ -84,11 +84,14 @@ async function Dashboard() {
           <h1 className="chrome-text text-3xl font-black sm:text-4xl">Chrisslaymedia</h1>
           <p className="text-sm text-chrome-dim">Dashboard · {admin.user.email}</p>
         </div>
-        <form action={signOutAction}>
-          <button type="submit" className="btn-neon !px-4 !py-2 text-sm">
-            <LogOut size={16} aria-hidden /> Sign out
-          </button>
-        </form>
+        <div className="flex gap-2">
+          <Link href="/admin/account" className="btn-neon !px-4 !py-2 text-sm">Change password</Link>
+          <form action={signOutAction}>
+            <button type="submit" className="btn-neon !px-4 !py-2 text-sm">
+              <LogOut size={16} aria-hidden /> Sign out
+            </button>
+          </form>
+        </div>
       </header>
 
       <section aria-label="Quick actions" className="mb-8 grid gap-3 sm:grid-cols-3">
