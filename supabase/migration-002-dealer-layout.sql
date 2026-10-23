@@ -1,4 +1,4 @@
--- Run once in the Supabase SQL editor (after schema.sql).
+-- Run after migration-002a-contact-enum.sql (which must be run on its own first).
 -- Adds dealership-style listing fields and lets the homepage contact form write to `leads`.
 
 alter table vehicles
@@ -12,10 +12,6 @@ alter table vehicles
   add column if not exists starting_price int,
   add column if not exists location       text,
   add column if not exists carfax_url     text;
-
--- ALTER TYPE ... ADD VALUE cannot be used in the same transaction as its first use,
--- so run this statement on its own if your editor wraps the script in a transaction.
-alter type inquiry_type add value if not exists 'contact';
 
 alter table leads
   alter column vehicle_id drop not null,
