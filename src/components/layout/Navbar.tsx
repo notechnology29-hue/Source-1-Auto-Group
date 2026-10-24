@@ -20,43 +20,42 @@ const PRICE_BRACKETS: NavLink[] = [
 
 const FEATURE_LINKS: NavLink[] = [
   { label: "Car Finder", href: "/inventory" },
-  { label: "Over 30 MPG", href: "/inventory?feature=mpg30" },
   { label: "Convertible", href: "/inventory?feature=convertible" },
-  { label: "Moonroof", href: "/inventory?feature=moonroof" },
-  { label: "Leather seats", href: "/inventory?feature=leather" },
   { label: "Heated seats", href: "/inventory?feature=heated" },
   { label: "Keyless ignition/entry", href: "/inventory?feature=keyless" },
+  { label: "Leather seats", href: "/inventory?feature=leather" },
+  { label: "Moonroof", href: "/inventory?feature=moonroof" },
+  { label: "Over 30 MPG", href: "/inventory?feature=mpg30" },
 ];
 
 const SIMPLE_MENUS: Record<string, NavLink[]> = {
   SPECIALS: [
-    { label: "Used Car Specials", href: "/specials" },
     { label: "Manager Specials", href: "/specials#manager" },
+    { label: "Used Car Specials", href: "/specials" },
     { label: "Weekly Ads", href: "/specials#weekly" },
   ],
   FINANCE: [
-    { label: "Online Credit Approval", href: "/finance#apply" },
     { label: "Aprobación de crédito", href: "/finance#aprobacion" },
-    { label: "Get Pre-Qualified", href: "/finance#pre-qualified" },
-    { label: "Value Your Trade", href: "/finance#trade" },
-    { label: "Schedule Test Drive", href: "/finance#test-drive" },
     { label: "Car Finder", href: "/inventory" },
+    { label: "Get Pre-Qualified", href: "/finance#pre-qualified" },
+    { label: "Online Credit Approval", href: "/finance#apply" },
+    { label: "Schedule Test Drive", href: "/finance#test-drive" },
+    { label: "Value Your Trade", href: "/finance#trade" },
   ],
   SERVICES: [
     { label: "All Services", href: "/services" },
-    { label: "Detailing", href: "/services#detailing" },
     { label: "Auto Repair", href: "/services#auto-repair" },
+    { label: "Detailing", href: "/services#detailing" },
     { label: "Paint and Body", href: "/services#paint-and-body" },
   ],
   "ABOUT US": [
-    { label: "Our Dealership", href: "/about" },
-    { label: "Testimonials", href: "/about#testimonials" },
-    { label: "Contact Us", href: "/#contact" },
-    { label: "Our Team", href: "/about#team" },
     { label: "Careers", href: "/about#careers" },
+    { label: "Contact Us", href: "/#contact" },
+    { label: "Our Dealership", href: "/about" },
+    { label: "Our Team", href: "/about#team" },
+    { label: "Testimonials", href: "/about#testimonials" },
   ],
 };
-
 const TABS = [
   { label: "HOME", href: "/" },
   { label: "ABOUT US", href: "/about" },
@@ -78,10 +77,10 @@ export function Navbar({ counts }: { counts: BodyCounts }) {
   const bodyStyles: { label: string; href: string; count: number; icon: LucideIcon }[] = [
     { label: "View all", href: "/inventory", count: counts.all, icon: LayoutGrid },
     { label: "Cars", href: "/inventory?body=Cars", count: counts.Cars ?? 0, icon: Car },
-    { label: "Trucks", href: "/inventory?body=Trucks", count: counts.Trucks ?? 0, icon: Truck },
-    { label: "SUVs & Crossovers", href: "/inventory?body=SUVs+%26+Crossovers", count: counts["SUVs & Crossovers"] ?? 0, icon: CarFront },
-    { label: "Vans", href: "/inventory?body=Vans", count: counts.Vans ?? 0, icon: Bus },
     { label: "Hybrid & Electric", href: "/inventory?fuel=Hybrid&fuel=Electric", count: counts.hybrid, icon: Zap },
+    { label: "SUVs & Crossovers", href: "/inventory?body=SUVs+%26+Crossovers", count: counts["SUVs & Crossovers"] ?? 0, icon: CarFront },
+    { label: "Trucks", href: "/inventory?body=Trucks", count: counts.Trucks ?? 0, icon: Truck },
+    { label: "Vans", href: "/inventory?body=Vans", count: counts.Vans ?? 0, icon: Bus },
   ];
 
   return (
