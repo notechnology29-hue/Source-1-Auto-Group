@@ -42,6 +42,12 @@ const SIMPLE_MENUS: Record<string, NavLink[]> = {
     { label: "Schedule Test Drive", href: "/finance#test-drive" },
     { label: "Car Finder", href: "/inventory" },
   ],
+  SERVICES: [
+    { label: "All Services", href: "/services" },
+    { label: "Detailing", href: "/services#detailing" },
+    { label: "Auto Repair", href: "/services#auto-repair" },
+    { label: "Paint and Body", href: "/services#paint-and-body" },
+  ],
   "ABOUT US": [
     { label: "Our Dealership", href: "/about" },
     { label: "Testimonials", href: "/about#testimonials" },
@@ -56,6 +62,7 @@ const TABS = [
   { label: "PRE-OWNED", href: "/inventory" },
   { label: "SPECIALS", href: "/specials" },
   { label: "FINANCE", href: "/finance" },
+  { label: "SERVICES", href: "/services" },
   { label: "ABOUT US", href: "/about" },
 ] as const;
 
