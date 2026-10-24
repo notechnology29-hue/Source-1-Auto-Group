@@ -57,12 +57,12 @@ const SIMPLE_MENUS: Record<string, NavLink[]> = {
   ],
 };
 const TABS = [
-  { label: "ABOUT US", href: "/about" },
-  { label: "FINANCE", href: "/finance" },
   { label: "HOME", href: "/" },
   { label: "PRE-OWNED", href: "/inventory" },
-  { label: "SERVICES", href: "/services" },
   { label: "SPECIALS", href: "/specials" },
+  { label: "FINANCE", href: "/finance" },
+  { label: "SERVICES", href: "/services" },
+  { label: "ABOUT US", href: "/about" },
 ] as const;
 
 const panelBase =
@@ -141,7 +141,7 @@ export function Navbar({ counts }: { counts: BodyCounts }) {
                 </Link>
 
                 {simple && (
-                  <ul className={`${panelBase} ${tab.label === "SPECIALS" ? "right-0" : "left-0"} top-full w-64 py-1`}>
+                  <ul className={`${panelBase} ${tab.label === "ABOUT US" ? "right-0" : "left-0"} top-full w-64 py-1`}>
                     {simple.map((l) => (
                       <li key={l.label}><Link href={l.href} className={linkCls}>{l.label}</Link></li>
                     ))}
