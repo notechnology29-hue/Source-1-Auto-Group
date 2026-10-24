@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { CheckCircle2, Lock } from "lucide-react";
 import { submitCreditApplicationAction } from "@/app/actions/creditApplication";
 
@@ -204,7 +205,7 @@ export function CreditApplicationForm() {
         <p>We may collect personally identifiable information such as name, postal address, telephone number, e-mail address, social security number, date of birth, etc. This personal information is collected and used by Source 1 Auto Group staff for the purpose of facilitating a relationship or business transaction.</p>
         <p className="flex items-start gap-2">
           <Lock size={16} className="mt-0.5 shrink-0 text-blue-600" aria-hidden />
-          <span>Your information is transmitted over SSL, and your Social Security Number and driver&apos;s license are encrypted before they are stored.</span>
+          <span>Your information is transmitted over SSL, and your Social Security Number and driver&apos;s license are encrypted before they are stored. See our <Link href="/privacy" className="underline">Privacy Policy</Link>.</span>
         </p>
       </div>
 

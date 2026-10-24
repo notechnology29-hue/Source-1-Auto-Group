@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MapPin, Phone, ShieldCheck } from "lucide-react";
 import { BRAND } from "@/lib/constants";
 import { PoweredBy } from "@/components/PoweredBy";
@@ -32,7 +33,8 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/5 px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] text-center text-xs text-chrome-dark">
-        © 2026 {BRAND.name}. Payment estimates are illustrative and subject to credit approval.
+        © 2026 {BRAND.name}. Payment estimates are illustrative and subject to credit approval.{" "}
+        <Link href="/privacy" className="underline hover:text-white">Privacy Policy</Link>
         <PoweredBy className="mt-2" />
       </div>
     </footer>
