@@ -2,14 +2,17 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { HotspotShowcase } from "@/components/HotspotShowcase";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { PhotoComingSoon } from "@/components/ui/PhotoComingSoon";
 import { CarfaxReportSection } from "@/components/vehicle/CarfaxReportSection";
 import { VehicleActions } from "@/components/vehicle/VehicleActions";
-import { DEFAULT_APR, LOAN_TERM_MONTHS } from "@/lib/constants";
+import { DEFAULT_APR, LOAN_TERM_MONTHS, BRAND } from "@/lib/constants";
 import { getVehicles } from "@/lib/data";
+import { getPublicVehicles } from "@/lib/public-data";
+import { SITE_URL } from "@/lib/site";
 import { miles, usd } from "@/lib/format";
 import { monthlyPayment } from "@/lib/payment";
 import {
@@ -23,6 +26,27 @@ import {
   transmissionOf,
   vehicleTitle,
 } from "@/lib/inventory";
+
+export async function generateMetadata({ params }: PageProps<"/inventory/[id]">): Promise<Metadata> {
+  const { id } = await params;
+  const vehicle = (await getPublicVehicles()).find((v) => v.id === id);
+  if (!vehicle) return { title: "Vehicle not found | Source 1 Auto Group", robots: { index: false } };
+
+  const title = vehicleTitle(vehicle);
+  const description = `${title} for sale at ${BRAND.name}: ${usd(vehicle.price)}, ${miles(vehicle.mileage)}. Stock # ${vehicle.stock_number}. Full-disclosure photos and a live payment estimate.`;
+  const image = imagesOf(vehicle)[0]?.url;
+  return {
+    title: `${title} for Sale | ${BRAND.name}`,
+    description,
+    alternates: { canonical: `/inventory/${vehicle.id}` },
+    openGraph: {
+      type: "website",
+      title: `${title} | ${usd(vehicle.price)}`,
+      description,
+      ...(image ? { images: [{ url: image }] } : {}),
+    },
+  };
+}
 
 export default function VehicleDetailPage({ params }: PageProps<"/inventory/[id]">) {
   return (
@@ -63,9 +87,35 @@ async function Detail({ params }: { params: PageProps<"/inventory/[id]">["params
     ["Condition", vehicle.condition[0].toUpperCase() + vehicle.condition.slice(1)],
   ];
   const showStarting = vehicle.starting_price && vehicle.starting_price > vehicle.price;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Car",
+    name: title,
+    brand: { "@type": "Brand", name: vehicle.make },
+    model: vehicle.model,
+    vehicleModelDate: String(vehicle.year),
+    vehicleIdentificationNumber: vehicle.vin,
+    sku: vehicle.stock_number,
+    mileageFromOdometer: { "@type": "QuantitativeValue", value: vehicle.mileage, unitCode: "SMI" },
+    color: vehicle.exterior_color ?? undefined,
+    image: imagesOf(vehicle).map((m) => m.url),
+    url: `${SITE_URL}/inventory/${vehicle.id}`,
+    offers: {
+      "@type": "Offer",
+      price: vehicle.price,
+      priceCurrency: "USD",
+      itemCondition: "https://schema.org/UsedCondition",
+      availability: vehicle.status === "available" ? "https://schema.org/InStock" : "https://schema.org/LimitedAvailability",
+      seller: { "@type": "AutoDealer", name: BRAND.name, telephone: BRAND.phoneDisplay },
+    },
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <nav aria-label="Breadcrumb" className="mb-4">
         <Link href="/inventory" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-blue-500 hover:text-blue-600">
           <ArrowLeft size={16} aria-hidden /> Back to Inventory

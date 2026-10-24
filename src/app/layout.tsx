@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,9 +19,18 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Source 1 Auto Group | Transparent Used Cars",
   description:
     "Premium pre-owned vehicles with full transparency: hotspot-inspected photos, live payment estimates, and 24-hour holds.",
+  openGraph: {
+    type: "website",
+    siteName: "Source 1 Auto Group",
+    title: "Source 1 Auto Group | Transparent Used Cars",
+    description: "Driven By Performance. Built On Trust. Browse pre-owned vehicles with nothing hidden.",
+    locale: "en_US",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
