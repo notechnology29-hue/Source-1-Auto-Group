@@ -57,9 +57,9 @@ const SIMPLE_MENUS: Record<string, NavLink[]> = {
   ],
 };
 const TABS = [
-  { label: "HOME", href: "/" },
   { label: "ABOUT US", href: "/about" },
   { label: "FINANCE", href: "/finance" },
+  { label: "HOME", href: "/" },
   { label: "PRE-OWNED", href: "/inventory" },
   { label: "SERVICES", href: "/services" },
   { label: "SPECIALS", href: "/specials" },
@@ -75,12 +75,12 @@ export function Navbar({ counts }: { counts: BodyCounts }) {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   const bodyStyles: { label: string; href: string; count: number; icon: LucideIcon }[] = [
-    { label: "View all", href: "/inventory", count: counts.all, icon: LayoutGrid },
     { label: "Cars", href: "/inventory?body=Cars", count: counts.Cars ?? 0, icon: Car },
     { label: "Hybrid & Electric", href: "/inventory?fuel=Hybrid&fuel=Electric", count: counts.hybrid, icon: Zap },
     { label: "SUVs & Crossovers", href: "/inventory?body=SUVs+%26+Crossovers", count: counts["SUVs & Crossovers"] ?? 0, icon: CarFront },
     { label: "Trucks", href: "/inventory?body=Trucks", count: counts.Trucks ?? 0, icon: Truck },
     { label: "Vans", href: "/inventory?body=Vans", count: counts.Vans ?? 0, icon: Bus },
+    { label: "View all", href: "/inventory", count: counts.all, icon: LayoutGrid },
   ];
 
   return (
